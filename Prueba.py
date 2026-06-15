@@ -300,6 +300,120 @@ def animar_balon_oficial():
 st.markdown('<div class="hero-banner"></div>', unsafe_allow_html=True)
 st.markdown(f"<p style='text-align:center; font-style:italic; color:#f1f5f9; font-size:1.05rem; padding:15px 20px 0 20px;'>{obtener_frase_futbolera()}</p>", unsafe_allow_html=True)
 
+
+# --- LÓGICA DE PERSISTENCIA DE DATOS EN VIVO (MOLDE SEGURO DE PRUEBAS) ---
+def inicializar_base_de_datos():
+    base_inicial = {
+        "resultados_reales": {},
+        "pronosticos": {p: {} for p in PARTICIPANTES}
+    }
+    
+    if os.path.exists(ARCHIVO_DATOS):
+        with open(ARCHIVO_DATOS, "r") as f:
+            try:
+                content = json.load(f)
+                if isinstance(content, dict):
+                    if "resultados_reales" in content:
+                        base_inicial["resultados_reales"] = content["resultados_reales"]
+                    if "pronosticos" in content:
+                        for p in PARTICIPANTES:
+                            base_inicial["pronosticos"][p] = content["pronosticos"].get(p, {})
+                    return base_inicial
+            except:
+                pass
+    return base_inicial
+
+if "datos_globales" not in st.session_state:
+    st.session_state["datos_globales"] = inicializar_base_de_datos()
+
+datos = st.session_state["datos_globales"]
+
+def guardar_datos(datos_completos):
+    st.session_state["datos_globales"] = datos_completos
+    try:
+        with open(ARCHIVO_DATOS, "w") as f:
+            json.dump(datos_completos, f, indent=4)
+    except:
+        pass
+
+def resolver_fixture_dinamico(fixture_base, resultados_reales):
+    fixture_copia = [dict(m) for m in fixture_base]
+    for m in fixture_copia:
+        if "GANADOR P" in m["local"]:
+            prev_id = m["local"].replace("GANADOR P", "")
+            if prev_id in resultados_reales and "avanza" in resultados_reales[prev_id]:
+                m["local"] = resultados_reales[prev_id]["avanza"].upper()
+                m["flag_l"] = "⚽"
+        if "GANADOR P" in m["visita"]:
+            prev_id = m["visita"].replace("GANADOR P", "")
+            if prev_id in resultados_reales and "avanza" in resultados_reales[prev_id]:
+                m["visita"] = resultados_reales[prev_id]["avanza"].upper()
+                m["flag_v"] = "⚽"
+    return fixture_copia
+
+FIXTURE_DINAMICO = resolver_fixture_dinamico(FIXTURE, datos["resultados_reales"])
+
+def calcular_puntos(real_l, real_v, pred_l, pred_v):
+    if real_l is None or real_v is None or pred_l is None or pred_v is None:
+        return 0, "#64748b", "⚪ Sin Jugar"
+    try:
+        rl, rv = int(real_l), int(real_v)
+        pl, pv = int(pred_l), int(pred_v)
+    except (ValueError, TypeError):
+        return 0, "#64748b", "⚪ Sin Jugar"
+        
+    if rl == pl and rv == pv:
+        return 3, "#22c55e", "🟢 Marcador Exacto (+3 Pts)"
+    signo_real = (rl > rv) - (rl < rv)
+    signo_pred = (pl > pv) - (pl < pv)
+    if signo_real == signo_pred:
+        return 1, "#eab308", "🟡 Tendencia Acertada (+1 Pt)"
+    return 0, "#ef4444", "🔴 Fallado (0 Pts)"
+
+# FUNCIÓN PARA CONTROLAR EL PITAZO INICIAL AUTOMÁTICO EN CHILE
+def verificar_partido_empezado(fecha_ref_str):
+    tz_chile = pytz.timezone('America/Santiago')
+    ahora_chile = datetime.now(tz_chile)
+    try:
+        hora_partido = datetime.strptime(fecha_ref_str, "%Y-%m-%d %H:%M")
+        hora_partido_tz = tz_chile.localize(hora_partido)
+        return ahora_chile >= hora_partido_tz
+    except:
+        return False
+
+# ANIMACIÓN DEL BALÓN REAL MEJORADA
+def animar_balon_oficial():
+    src_balon = img_balon if img_balon else "⚽"
+    if img_balon:
+        balon_html = f"""
+        <div id="ball-box" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;display:flex;justify-content:center;align-items:center;">
+            <img src="{src_balon}" id="spinning-ball" style="width:160px;height:160px;border-radius:50%;animation: spin 1.5s ease-out forwards;">
+        </div>
+        <style>
+        @keyframes spin {{
+            0% {{ transform: scale(0) rotate(0deg); opacity: 0; }}
+            40% {{ transform: scale(1.3) rotate(360deg); opacity: 1; }}
+            100% {{ transform: scale(0) rotate(720deg); opacity: 0; }}
+        }}
+        </style>
+        <script>setTimeout(() => {{ document.getElementById('ball-box').remove(); }}, 1500);</script>
+        """
+    else:
+        balon_html = """
+        <div id="ball-box" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;display:flex;justify-content:center;align-items:center;">
+            <div style="font-size:120px; animation: spin 1.4s ease-out forwards;">⚽</div>
+        </div>
+        <style>
+        @keyframes spin {{ 0% {{ transform: scale(0) rotate(0deg); }} 50% {{ transform: scale(1.5) rotate(360deg); }} 100% {{ transform: scale(0); }} }}
+        </style>
+        <script>setTimeout(() => {{ document.getElementById('ball-box').remove(); }}, 1400);</script>
+        """
+    st.components.v1.html(balon_html, height=0, width=0)
+
+# --- PORTADA DE LA WEB ---
+st.markdown('<div class="hero-banner"></div>', unsafe_allow_html=True)
+st.markdown(f"<p style='text-align:center; font-style:italic; color:#f1f5f9; font-size:1.05rem; padding:15px 20px 0 20px;'>{obtener_frase_futbolera()}</p>", unsafe_allow_html=True)
+
 # BANNER PERSISTENTE DE SUCESO (Mantiene el cartel arriba tras saltar la pantalla)
 if "mensaje_exito" in st.session_state:
     st.success(st.session_state["mensaje_exito"])
