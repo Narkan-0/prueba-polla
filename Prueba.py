@@ -135,9 +135,7 @@ def obtener_fixture_completo():
 
         # --- GRAN FINAL (Partido 104) ---
         {"id": 104, "fase_bloque": "Fases Finales", "grupo": "Gran Final", "fecha_ref": "2026-07-19 15:00", "fecha": "19 de Julio", "hora": "15:00", "local": "GANADOR P101", "flag_l": "🏆", "visita": "GANADOR P102", "flag_v": "🏆", "estadio": "N. York/N. Jersey"}
-    ]
-
-FIXTURE = sorted(obtener_fixture_completo(), key=lambda x: x['id'])
+    ]FIXTURE = sorted(obtener_fixture_completo(), key=lambda x: x['id'])
 
 # SISTEMA ROTATIVO DE FRASES CÉLEBRES VERIFICADAS
 @st.cache_data(ttl=10)
@@ -150,42 +148,87 @@ def obtener_frase_futbolera():
     ]
     return random.choice(frases)
 
-# CONFIGURACIÓN GENERAL DE USUARIOS (11 competidores ordenados alfabéticamente)
-PARTICIPANTES = ["Constanza", "David", "Franco", "José Alonso", "José Mario", "Leonardo", "Marlene", "Mario", "Néstor", "Renato", "Sergio"]
-CUOTA_INSCRIPCION = 5000
-PASSWORD_ADMIN = "admin123"
+# --- INYECTAR TEMA OSCURO FORZADO POR CÓDIGO ---
+st.markdown(
+    """
+    <script>
+        var elements = window.parent.document.getElementsByTagName('html');
+        if (elements.length > 0) {
+            elements[0].setAttribute('data-theme', 'dark');
+        }
+    </script>
+    """,
+    unsafe_allow_html=True
+)
 
-# ARCHIVO DE ALMACENAMIENTO EXCLUSIVO DE PRUEBAS
-ARCHIVO_DATOS = "datos_prueba.json"
-
-# FUNCIÓN TÉCNICA PARA PASAR IMÁGENES LOCALES A ENLACES COMPATIBLES
-def codificar_imagen_local(ruta_archivo):
-    if os.path.exists(ruta_archivo):
-        with open(ruta_archivo, "rb") as f:
-            return f"data:image/png;base64,{base64.b64encode(f.read()).decode()}"
+# --- FUNCIÓN SEGURA PARA CARGAR IMÁGENES LOCALES EN BASE64 ---
+def cargar_imagen_local(nombre_archivo):
+    if os.path.exists(nombre_archivo):
+        with open(nombre_archivo, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode()
     return ""
 
-# Lectura de tus imágenes reales subidas a GitHub
-img_fondo = codificar_imagen_local("fondo.png")
-img_portada = codificar_imagen_local("portada.jpeg")
-img_balon = codificar_imagen_local("balon.jpeg")
+portada_base64 = cargar_imagen_local("portada.jpeg")
+fondo_base64 = cargar_imagen_local("fondo.png")
+balon_base64 = cargar_imagen_local("balon.jpeg")
 
-# ESTILOS ADAPTADOS (Con salvaguardas y capas oscuras para máxima legibilidad en iPad)
-estilo_fondo = f"url('{img_fondo}')" if img_fondo else "linear-gradient(135deg, #0f172a, #1e293b)"
-estilo_portada = f"url('{img_portada}')" if img_portada else "linear-gradient(90deg, #1e1b4b, #31102f)"
+# --- DISEÑO DE INTERFAZ Y ESTILOS CSS REVISADOS (ANTI-DEFORMACIÓN) ---
+estilos_css = f"""
+<style>
+    .stApp {{
+        background-color: #0e1117;
+        color: #ffffff;
+    }}
+    
+    {" .stApp { background-image: linear-gradient(rgba(14, 17, 23, 0.85), rgba(14, 17, 23, 0.85)), url('data:image/png;base64," + fondo_base64 + "'); background-size: cover; background-attachment: fixed; }" if fondo_base64 else ""}
 
-st.markdown(f"""
-    <style>
-    .main {{ 
-        background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85)), {estilo_fondo};
-        background-size: cover; background-attachment: fixed; color: #ffffff; 
+    .banner-portada {{
+        width: 100%;
+        height: 220px;
+        background-image: url('data:image/jpeg;base64,{portada_base64}');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 12px;
+        margin-bottom: 20px;
     }}
-    .hero-banner {{
-        background: {estilo_portada};
-        background-size: cover; background-position: center; padding: 110px 35px; border-radius: 15px; border: 3px solid #be123c;
+
+    .card-partido {{
+        background: rgba(38, 43, 54, 0.7);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }}
-    </style>
-""", unsafe_allow_html=True)
+
+    .balon-giratorio {{
+        width: 50px;
+        height: 50px;
+        background-image: url('data:image/jpeg;base64,{balon_base64}');
+        background-size: cover;
+        border-radius: 50%;
+        display: inline-block;
+        animation: spin 2s linear infinite;
+    }}
+    @keyframes spin {{
+        0% {{ transform: rotate(0deg); }}
+        100% {{ transform: rotate(360deg); }}
+    }}
+</style>
+"""
+st.markdown(estilos_css, unsafe_allow_html=True)
+
+# --- DIBUJAR LA PORTADA SANEADA ---
+if portada_base64:
+    st.markdown('<div class="banner-portada"></div>', unsafe_allow_html=True)
+else:
+    st.title("⚽ Polla Mundial 2026")
+
+st.markdown(f"<p style='text-align:center; font-style:italic; color:#f1f5f9; font-size:1.05rem; padding:15px 20px 0 20px;'>{{obtener_frase_futbolera()}}</p>", unsafe_allow_html=True)
+
+
+
 
 # --- LÓGICA DE PERSISTENCIA DE DATOS EN VIVO (MOLDE SEGURO DE PRUEBAS) ---
 def inicializar_base_de_datos():
