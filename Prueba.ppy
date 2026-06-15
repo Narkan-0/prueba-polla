@@ -8,7 +8,7 @@ from datetime import datetime
 import pytz
 
 # CONFIGURACIÓN DE LA PÁGINA (Diseño Responsive)
-st.set_page_config(page_title="Polla Mundial 2026", page_icon="⚽", layout="wide")
+st.set_page_config(page_title="Polla Mundial 2026 - LABORATORIO DE PRUEBAS", page_icon="🧪", layout="wide")
 
 # CONSOLIDADO OFICIAL DE LOS 104 PARTIDOS CON LLAVES ELIMINATORIAS SEGÚN FORMATO FIFA
 @st.cache_data
@@ -21,7 +21,7 @@ def obtener_fixture_completo():
         {"id": 4, "fase_bloque": "Fecha 1", "grupo": "Grupo D", "fecha_ref": "2026-06-12 21:00", "fecha": "12 de Junio", "hora": "21:00", "local": "ESTADOS UNIDOS", "flag_l": "🇺🇸", "visita": "PARAGUAY", "flag_v": "🇵🇾", "estadio": "Los Angeles"},
         {"id": 5, "fase_bloque": "Fecha 1", "grupo": "Grupo B", "fecha_ref": "2026-06-13 15:00", "fecha": "13 de Junio", "hora": "15:00", "local": "CATAR", "flag_l": "🇶🇦", "visita": "SUIZA", "flag_v": "🇨🇭", "estadio": "San Francisco"},
         {"id": 6, "fase_bloque": "Fecha 1", "grupo": "Grupo C", "fecha_ref": "2026-06-13 18:00", "fecha": "13 de Junio", "hora": "18:00", "local": "BRASIL", "flag_l": "🇧🇷", "visita": "MARRUECOS", "flag_v": "🇲🇦", "estadio": "N. York/N. Jersey"},
-        {"id": 7, "fase_bloque": "Fecha 1", "grupo": "Grupo C", "fecha_ref": "2026-06-13 21:00", "fecha": "13 de Junio", "hora": "21:00", "local": "HAITÍ", "flag_l": "🇭🇹", "visita": "ESCOCIA", "flag_v": "\U0001F3F4\U000E0067\U000E0062\U000E0073\U000E0063\U000E0074\U000E007F", "estadio": "Boston"},
+        {"id": 7, "fase_bloque": "Fecha 1", "grupo": "Grupo C", "fecha_ref": "2026-06-13 21:00", "fecha": "13 de Junio", "hora": "21:00", "local": "HAITÍ", "flag_l": "🇭🇹", "visita": "ESCOCIA", "flag_v": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "estadio": "Boston"},
         {"id": 8, "fase_bloque": "Fecha 1", "grupo": "Grupo D", "fecha_ref": "2026-06-14 00:00", "fecha": "14 de Junio", "hora": "00:00", "local": "AUSTRALIA", "flag_l": "🇦🇺", "visita": "TURQUÍA", "flag_v": "🇹🇷", "estadio": "Vancouver"},
         {"id": 9, "fase_bloque": "Fecha 1", "grupo": "Grupo E", "fecha_ref": "2026-06-14 13:00", "fecha": "14 de Junio", "hora": "13:00", "local": "ALEMANIA", "flag_l": "🇩🇪", "visita": "CURAZAO", "flag_v": "🇨🇼", "estadio": "Houston"},
         {"id": 10, "fase_bloque": "Fecha 1", "grupo": "Grupo F", "fecha_ref": "2026-06-14 16:00", "fecha": "14 de Junio", "hora": "16:00", "local": "PAÍSES BAJOS", "flag_l": "🇳🇱", "visita": "JAPÓN", "flag_v": "🇯🇵", "estadio": "Dallas"},
@@ -32,7 +32,7 @@ def obtener_fixture_completo():
         {"id": 15, "fase_bloque": "Fecha 1", "grupo": "Grupo H", "fecha_ref": "2026-06-15 18:00", "fecha": "15 de Junio", "hora": "18:00", "local": "ARABIA SAUDITA", "flag_l": "🇸🇦", "visita": "URUGUAY", "flag_v": "🇺🇾", "estadio": "Miami"},
         {"id": 16, "fase_bloque": "Fecha 1", "grupo": "Grupo G", "fecha_ref": "2026-06-15 21:00", "fecha": "15 de Junio", "hora": "21:00", "local": "IRÁN", "flag_l": "🇮🇷", "visita": "NUEVA ZELANDA", "flag_v": "🇳🇿", "estadio": "Los Angeles"},
         {"id": 17, "fase_bloque": "Fecha 1", "grupo": "Grupo I", "fecha_ref": "2026-06-16 15:00", "fecha": "16 de Junio", "hora": "15:00", "local": "FRANCIA", "flag_l": "🇫🇷", "visita": "SENEGAL", "flag_v": "🇸🇳", "estadio": "N. York/N. Jersey"},
-        {"id": 18, "fase_bloque": "Fecha 1", "grupo": "Grupo L", "fecha_ref": "2026-06-17 16:00", "fecha": "17 de Junio", "hora": "16:00", "local": "INGLATERRA", "flag_l": "\U0001F3F4\U000E0067\U000E0062\U000E0065\U000E006E\U000E0067\U000E007F", "visita": "CROACIA", "flag_v": "🇭🇷", "estadio": "Dallas"},
+        {"id": 18, "fase_bloque": "Fecha 1", "grupo": "Grupo L", "fecha_ref": "2026-06-17 16:00", "fecha": "17 de Junio", "hora": "16:00", "local": "INGLATERRA", "flag_l": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "visita": "CROACIA", "flag_v": "🇭🇷", "estadio": "Dallas"},
         {"id": 19, "fase_bloque": "Fecha 1", "grupo": "Grupo I", "fecha_ref": "2026-06-16 18:00", "fecha": "16 de Junio", "hora": "18:00", "local": "IRAK", "flag_l": "🇮🇶", "visita": "NORUEGA", "flag_v": "🇳🇴", "estadio": "Boston"},
         {"id": 20, "fase_bloque": "Fecha 1", "grupo": "Grupo J", "fecha_ref": "2026-06-16 21:00", "fecha": "16 de Junio", "hora": "21:00", "local": "ARGENTINA", "flag_l": "🇦🇷", "visita": "ARGELIA", "flag_v": "🇩🇿", "estadio": "Kansas City"},
         {"id": 21, "fase_bloque": "Fecha 1", "grupo": "Grupo J", "fecha_ref": "2026-06-17 00:00", "fecha": "17 de Junio", "hora": "00:00", "local": "AUSTRIA", "flag_l": "🇦🇹", "visita": "JORDANIA", "flag_v": "🇯🇴", "estadio": "San Francisco"},
@@ -46,7 +46,7 @@ def obtener_fixture_completo():
         {"id": 27, "fase_bloque": "Fecha 2", "grupo": "Grupo B", "fecha_ref": "2026-06-18 18:00", "fecha": "18 de Junio", "hora": "18:00", "local": "CANADÁ", "flag_l": "🇨🇦", "visita": "CATAR", "flag_v": "🇶🇦", "estadio": "Vancouver"},
         {"id": 28, "fase_bloque": "Fecha 2", "grupo": "Grupo A", "fecha_ref": "2026-06-18 21:00", "fecha": "18 de Junio", "hora": "21:00", "local": "MÉXICO", "flag_l": "🇲🇽", "visita": "COREA DEL SUR", "flag_v": "🇰🇷", "estadio": "Guadalajara"},
         {"id": 29, "fase_bloque": "Fecha 2", "grupo": "Grupo D", "fecha_ref": "2026-06-19 15:00", "fecha": "19 de Junio", "hora": "15:00", "local": "ESTADOS UNIDOS", "flag_l": "🇺🇸", "visita": "AUSTRALIA", "flag_v": "🇦🇺", "estadio": "Seattle"},
-        {"id": 30, "fase_bloque": "Fecha 2", "grupo": "Grupo C", "fecha_ref": "2026-06-19 18:00", "fecha": "19 de Junio", "hora": "18:00", "local": "ESCOCIA", "flag_l": "\U0001F3F4\U000E0067\U000E0062\U000E0073\U000E0063\U000E0074\U000E007F", "visita": "MARRUECOS", "flag_v": "🇲🇦", "estadio": "Boston"},
+        {"id": 30, "fase_bloque": "Fecha 2", "grupo": "Grupo C", "fecha_ref": "2026-06-19 18:00", "fecha": "19 de Junio", "hora": "18:00", "local": "ESCOCIA", "flag_l": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "visita": "MARRUECOS", "flag_v": "🇲🇦", "estadio": "Boston"},
         {"id": 31, "fase_bloque": "Fecha 2", "grupo": "Grupo C", "fecha_ref": "2026-06-19 20:30", "fecha": "19 de Junio", "hora": "20:30", "local": "BRASIL", "flag_l": "🇧🇷", "visita": "HAITÍ", "flag_v": "🇭🇹", "estadio": "Filadelfia"},
         {"id": 32, "fase_bloque": "Fecha 2", "grupo": "Grupo D", "fecha_ref": "2026-06-19 23:00", "fecha": "19 de Junio", "hora": "23:00", "local": "TURQUÍA", "flag_l": "🇹🇷", "visita": "PARAGUAY", "flag_v": "🇵🇾", "estadio": "San Francisco"},
         {"id": 33, "fase_bloque": "Fecha 2", "grupo": "Grupo F", "fecha_ref": "2026-06-20 13:00", "fecha": "20 de Junio", "hora": "13:00", "local": "PAÍSES BAJOS", "flag_l": "🇳🇱", "visita": "SUECIA", "flag_v": "🇸🇪", "estadio": "Houston"},
@@ -59,7 +59,7 @@ def obtener_fixture_completo():
         {"id": 40, "fase_bloque": "Fecha 2", "grupo": "Grupo G", "fecha_ref": "2026-06-21 21:00", "fecha": "21 de Junio", "hora": "21:00", "local": "NUEVA ZELANDA", "flag_l": "🇳🇿", "visita": "EGIPTO", "flag_v": "🇪🇬", "estadio": "Vancouver"},
         {"id": 41, "fase_bloque": "Fecha 2", "grupo": "Grupo K", "fecha_ref": "2026-06-23 13:00", "fecha": "23 de Junio", "hora": "13:00", "local": "PORTUGAL", "flag_l": "🇵🇹", "visita": "UZBEKISTÁN", "flag_v": "🇺🇿", "estadio": "Houston"},
         {"id": 42, "fase_bloque": "Fecha 2", "grupo": "Grupo J", "fecha_ref": "2026-06-22 13:00", "fecha": "22 de Junio", "hora": "13:00", "local": "ARGENTINA", "flag_l": "🇦🇷", "visita": "AUSTRIA", "flag_v": "🇦🇹", "estadio": "Dallas"},
-        {"id": 43, "fase_bloque": "Fecha 2", "grupo": "Grupo L", "fecha_ref": "2026-06-23 16:00", "fecha": "23 de Junio", "hora": "16:00", "local": "INGLATERRA", "flag_l": "\U0001F3F4\U000E0067\U000E0062\U000E0065\U000E006E\U000E0067\U000E007F", "visita": "GHANA", "flag_v": "🇬🇭", "estadio": "Boston"},
+        {"id": 43, "fase_bloque": "Fecha 2", "grupo": "Grupo L", "fecha_ref": "2026-06-23 16:00", "fecha": "23 de Junio", "hora": "16:00", "local": "INGLATERRA", "flag_l": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "visita": "GHANA", "flag_v": "🇬🇭", "estadio": "Boston"},
         {"id": 44, "fase_bloque": "Fecha 2", "grupo": "Grupo I", "fecha_ref": "2026-06-22 17:00", "fecha": "22 de Junio", "hora": "17:00", "local": "FRANCIA", "flag_l": "🇫🇷", "visita": "IRAK", "flag_v": "🇮🇶", "estadio": "Filadelfia"},
         {"id": 45, "fase_bloque": "Fecha 2", "grupo": "Grupo L", "fecha_ref": "2026-06-23 19:00", "fecha": "23 de Junio", "hora": "19:00", "local": "PANAMÁ", "flag_l": "🇵🇦", "visita": "CROACIA", "flag_v": "🇭🇷", "estadio": "Toronto"},
         {"id": 46, "fase_bloque": "Fecha 2", "grupo": "Grupo I", "fecha_ref": "2026-06-22 20:00", "fecha": "22 de Junio", "hora": "20:00", "local": "NORUEGA", "flag_l": "🇳🇴", "visita": "SENEGAL", "flag_v": "🇸🇳", "estadio": "N. York/N. Jersey"},
@@ -69,7 +69,7 @@ def obtener_fixture_completo():
         # --- FECHA 3 (Partidos 49 al 72) — ORDENADO CRONOLÓGICAMENTE ---
         {"id": 49, "fase_bloque": "Fecha 3", "grupo": "Grupo B", "fecha_ref": "2026-06-24 15:00", "fecha": "24 de Junio", "hora": "15:00", "local": "SUIZA", "flag_l": "🇨🇭", "visita": "CANADÁ", "flag_v": "🇨🇦", "estadio": "Vancouver"},
         {"id": 50, "fase_bloque": "Fecha 3", "grupo": "Grupo B", "fecha_ref": "2026-06-24 15:00", "fecha": "24 de Junio", "hora": "15:00", "local": "BOSNIA Y HERZEG.", "flag_l": "🇧🇦", "visita": "CATAR", "flag_v": "🇶🇦", "estadio": "Seattle"},
-        {"id": 51, "fase_bloque": "Fecha 3", "grupo": "Grupo C", "fecha_ref": "2026-06-24 18:00", "fecha": "24 de Junio", "hora": "18:00", "local": "ESCOCIA", "flag_l": "\U0001F3F4\U000E0067\U000E0062\U000E0073\U000E0063\U000E0074\U000E007F", "visita": "BRASIL", "flag_v": "🇧🇷", "estadio": "Miami"},
+        {"id": 51, "fase_bloque": "Fecha 3", "grupo": "Grupo C", "fecha_ref": "2026-06-24 18:00", "fecha": "24 de Junio", "hora": "18:00", "local": "ESCOCIA", "flag_l": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "visita": "BRASIL", "flag_v": "🇧🇷", "estadio": "Miami"},
         {"id": 52, "fase_bloque": "Fecha 3", "grupo": "Grupo C", "fecha_ref": "2026-06-24 18:00", "fecha": "24 de Junio", "hora": "18:00", "local": "MARRUECOS", "flag_l": "🇲🇦", "visita": "HAITÍ", "flag_v": "🇭🇹", "estadio": "Atlanta"},
         {"id": 53, "fase_bloque": "Fecha 3", "grupo": "Grupo A", "fecha_ref": "2026-06-24 21:00", "fecha": "24 de Junio", "hora": "21:00", "local": "REP. CHECA", "flag_l": "🇨🇿", "visita": "MÉXICO", "flag_v": "🇲🇽", "estadio": "Ciudad de México"},
         {"id": 54, "fase_bloque": "Fecha 3", "grupo": "Grupo A", "fecha_ref": "2026-06-24 21:00", "fecha": "24 de Junio", "hora": "21:00", "local": "SUDÁFRICA", "flag_l": "🇿🇦", "visita": "COREA DEL SUR", "flag_v": "🇰🇷", "estadio": "Monterrey"},
@@ -77,7 +77,7 @@ def obtener_fixture_completo():
         {"id": 56, "fase_bloque": "Fecha 3", "grupo": "Grupo I", "fecha_ref": "2026-06-26 15:00", "fecha": "26 de Junio", "hora": "15:00", "local": "SENEGAL", "flag_l": "🇸🇳", "visita": "IRAK", "flag_v": "🇮🇶", "estadio": "Toronto"},
         {"id": 57, "fase_bloque": "Fecha 3", "grupo": "Grupo E", "fecha_ref": "2026-06-25 16:00", "fecha": "25 de Junio", "hora": "16:00", "local": "CURAZAO", "flag_l": "🇨🇼", "visita": "COSTA DE MARFIL", "flag_v": "🇨🇮", "estadio": "Filadelfia"},
         {"id": 58, "fase_bloque": "Fecha 3", "grupo": "Grupo E", "fecha_ref": "2026-06-25 16:00", "fecha": "25 de Junio", "hora": "16:00", "local": "ECUADOR", "flag_l": "🇪🇨", "visita": "ALEMANIA", "flag_v": "🇩🇪", "estadio": "N. York/N. Jersey"},
-        {"id": 59, "fase_bloque": "Fecha 3", "grupo": "Grupo L", "fecha_ref": "2026-06-27 17:00", "fecha": "27 de Junio", "hora": "17:00", "local": "PANAMÁ", "flag_l": "🇵🇦", "visita": "INGLATERRA", "flag_v": "\U0001F3F4\U000E0067\U000E0062\U000E0065\U000E006E\U000E0067\U000E007F", "estadio": "N. York/N. Jersey"},
+        {"id": 59, "fase_bloque": "Fecha 3", "grupo": "Grupo L", "fecha_ref": "2026-06-27 17:00", "fecha": "27 de Junio", "hora": "17:00", "local": "PANAMÁ", "flag_l": "🇵🇦", "visita": "INGLATERRA", "flag_v": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "estadio": "N. York/N. Jersey"},
         {"id": 60, "fase_bloque": "Fecha 3", "grupo": "Grupo L", "fecha_ref": "2026-06-27 17:00", "fecha": "27 de Junio", "hora": "17:00", "local": "CROACIA", "flag_l": "🇭🇷", "visita": "GHANA", "flag_v": "🇬🇭", "estadio": "Filadelfia"},
         {"id": 61, "fase_bloque": "Fecha 3", "grupo": "Grupo F", "fecha_ref": "2026-06-25 19:00", "fecha": "25 de Junio", "hora": "19:00", "local": "JAPÓN", "flag_l": "🇯🇵", "visita": "SUECIA", "flag_v": "🇸🇪", "estadio": "Dallas"},
         {"id": 62, "fase_bloque": "Fecha 3", "grupo": "Grupo F", "fecha_ref": "2026-06-25 19:00", "fecha": "25 de Junio", "hora": "19:00", "local": "TÚNEZ", "flag_l": "🇹🇳", "visita": "PAÍSES BAJOS", "flag_v": "🇳🇱", "estadio": "Kansas City"},
@@ -92,7 +92,7 @@ def obtener_fixture_completo():
         {"id": 71, "fase_bloque": "Fecha 3", "grupo": "Grupo G", "fecha_ref": "2026-06-26 23:00", "fecha": "26 de Junio", "hora": "23:00", "local": "EGIPTO", "flag_l": "🇪🇬", "visita": "IRÁN", "flag_v": "🇮🇷", "estadio": "Seattle"},
         {"id": 72, "fase_bloque": "Fecha 3", "grupo": "Grupo G", "fecha_ref": "2026-06-26 23:00", "fecha": "26 de Junio", "hora": "23:00", "local": "NUEVA ZELANDA", "flag_l": "🇳🇿", "visita": "BÉLGICA", "flag_v": "🇧🇪", "estadio": "Vancouver"},
 
-        # --- FASES FINALES (Estructura Intacta) ---
+        # --- FASES FINALES ---
         {"id": 73, "fase_bloque": "Fases Finales", "grupo": "Dieciseisavos", "fecha_ref": "2026-06-28 16:00", "fecha": "28 de Junio", "hora": "16:00", "local": "2A", "flag_l": "⚽", "visita": "2B", "flag_v": "⚽", "estadio": "Los Angeles"},
         {"id": 74, "fase_bloque": "Fases Finales", "grupo": "Dieciseisavos", "fecha_ref": "2026-06-29 15:00", "fecha": "29 de Junio", "hora": "15:00", "local": "1A", "flag_l": "⚽", "visita": "3C/E/F/I", "flag_v": "⚽", "estadio": "Boston"},
         {"id": 75, "fase_bloque": "Fases Finales", "grupo": "Dieciseisavos", "fecha_ref": "2026-06-29 18:00", "fecha": "29 de Junio", "hora": "18:00", "local": "1B", "flag_l": "⚽", "visita": "3A/C/F/H", "flag_v": "⚽", "estadio": "Atlanta"},
@@ -116,10 +116,13 @@ def obtener_frase_futbolera():
     ]
     return random.choice(frases)
 
-# CONFIGURACIÓN GENERAL DE USUARIOS
-PARTICIPANTES = ["Constanza", "José Alonso", "José Mario", "Leonardo", "Mario", "Néstor", "Renato", "Sergio"]
+# CONFIGURACIÓN GENERAL DE USUARIOS (¡Corregido: 11 competidores ordenados alfabéticamente!)
+PARTICIPANTES = ["Constanza", "David", "Franco", "José Alonso", "José Mario", "Leonardo", "Marlene", "Mario", "Néstor", "Renato", "Sergio"]
 CUOTA_INSCRIPCION = 5000
 PASSWORD_ADMIN = "admin123"
+
+# ARCHIVO DE ALMACENAMIENTO EXCLUSIVO DE PRUEBAS
+ARCHIVO_DATOS = "datos_prueba.json"
 
 # FUNCIÓN TÉCNICA PARA PASAR IMÁGENES LOCALES A ENLACES COMPATIBLES
 def codificar_imagen_local(ruta_archivo):
@@ -128,33 +131,37 @@ def codificar_imagen_local(ruta_archivo):
             return f"data:image/png;base64,{base64.b64encode(f.read()).decode()}"
     return ""
 
+# Lectura de tus imágenes reales subidas a GitHub
 img_fondo = codificar_imagen_local("fondo.png")
-img_portada = codificar_imagen_local("portada.png")
-img_balon = codificar_imagen_local("balon.png")
+img_portada = codificar_imagen_local("portada.jpeg")
+img_balon = codificar_imagen_local("balon.jpeg")
 
-# ESTILOS ADAPTADOS
+# ESTILOS ADAPTADOS (Con salvaguardas y capas oscuras para máxima legibilidad en iPad)
+estilo_fondo = f"url('{img_fondo}')" if img_fondo else "linear-gradient(135deg, #0f172a, #1e293b)"
+estilo_portada = f"url('{img_portada}')" if img_portada else "linear-gradient(90deg, #1e1b4b, #31102f)"
+
 st.markdown(f"""
     <style>
     .main {{ 
-        background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(30, 41, 59, 0.88)){" , url('" + img_fondo + "')" if img_fondo else ""};
+        background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85)), {estilo_fondo};
         background-size: cover; background-attachment: fixed; color: #ffffff; 
     }}
     .hero-banner {{
-        background: linear-gradient(rgba(15, 23, 42, 0.2), rgba(30, 41, 59, 0.2)){" , url('" + img_portada + "')" if img_portada else ""};
-        background-size: cover; background-position: center; padding: 90px 35px; border-radius: 15px; border: 3px solid #be123c;
+        background: {estilo_portada};
+        background-size: cover; background-position: center; padding: 110px 35px; border-radius: 15px; border: 3px solid #be123c;
     }}
     </style>
 """, unsafe_allow_html=True)
 
-# --- LÓGICA DE PERSISTENCIA DE DATOS EN VIVO (MOLDE INDESTRUCTIBLE ANTIFALLOS) ---
+# --- LÓGICA DE PERSISTENCIA DE DATOS EN VIVO (MOLDE SEGURO DE PRUEBAS) ---
 def inicializar_base_de_datos():
     base_inicial = {
         "resultados_reales": {},
         "pronosticos": {p: {} for p in PARTICIPANTES}
     }
     
-    if os.path.exists("datos_polla.json"):
-        with open("datos_polla.json", "r") as f:
+    if os.path.exists(ARCHIVO_DATOS):
+        with open(ARCHIVO_DATOS, "r") as f:
             try:
                 content = json.load(f)
                 if isinstance(content, dict):
@@ -176,11 +183,10 @@ datos = st.session_state["datos_globales"]
 def guardar_datos(datos_completos):
     st.session_state["datos_globales"] = datos_completos
     try:
-        with open("datos_polla.json", "w") as f:
+        with open(ARCHIVO_DATOS, "w") as f:
             json.dump(datos_completos, f, indent=4)
     except:
         pass
-
 
 def resolver_fixture_dinamico(fixture_base, resultados_reales):
     fixture_copia = [dict(m) for m in fixture_base]
@@ -227,13 +233,13 @@ def verificar_partido_empezado(fecha_ref_str):
     except:
         return False
 
-# ANIMACIÓN DEL BALÓN REAL (balon.png)
+# ANIMACIÓN DEL BALÓN REAL MEJORADA
 def animar_balon_oficial():
     src_balon = img_balon if img_balon else "⚽"
     if img_balon:
         balon_html = f"""
         <div id="ball-box" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;display:flex;justify-content:center;align-items:center;">
-            <img src="{src_balon}" id="spinning-ball" style="width:160px;height:160px;animation: spin 1.5s ease-out forwards;">
+            <img src="{src_balon}" id="spinning-ball" style="width:160px;height:160px;border-radius:50%;animation: spin 1.5s ease-out forwards;">
         </div>
         <style>
         @keyframes spin {{
@@ -258,7 +264,13 @@ def animar_balon_oficial():
 
 # --- PORTADA DE LA WEB ---
 st.markdown('<div class="hero-banner"></div>', unsafe_allow_html=True)
-st.markdown(f"<p style='text-align:center; font-style:italic; color:#f1f5f9; font-size:1.05rem; padding:0 20px;'>{obtener_frase_futbolera()}</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align:center; font-style:italic; color:#f1f5f9; font-size:1.05rem; padding:15px 20px 0 20px;'>{obtener_frase_futbolera()}</p>", unsafe_allow_html=True)
+
+# BANNER PERSISTENTE DE SUCESO (Mantiene el cartel arriba tras saltar la pantalla)
+if "mensaje_exito" in st.session_state:
+    st.success(st.session_state["mensaje_exito"])
+    del st.session_state["mensaje_exito"]
+
 st.write("---")
 
 tabs = st.tabs(["📜 BASES DEL JUEGO", "📊 CLASIFICACIÓN EN VIVO", "✍️ REGISTRAR PRONÓSTICOS", "📅 CRONOGRAMA", "⚙️ PANEL CONTROL"])
@@ -289,7 +301,7 @@ with tabs[0]:
     * Si persiste el empate, el premio del puesto se divide en partes iguales.
     """)
 
-# --- TAB 2: CLASIFICACIÓN EN VIVO ---
+# --- TAB 2: CLASIFICACIÓN EN VIVO (¡Corregido contra puntos fantasma!) ---
 with tabs[1]:
     st.markdown("## 📊 RENDIMIENTO DE LA FAMILIA")
     tabla_posiciones = []
@@ -302,9 +314,11 @@ with tabs[1]:
         for part in FIXTURE_DINAMICO:
             pid = str(part["id"])
             real = datos["resultados_reales"].get(pid)
-            pred = datos["pronosticos"].get(p, {}).get(pid, {"l": 0, "v": 0})
-            if real and pred and "l" in real and "v" in real:
-                pts, _, _ = calcular_puntos(real["l"], real["v"], pred.get("l", 0), pred.get("v", 0))
+            pred = datos["pronosticos"].get(p, {}).get(pid)
+            
+            # ¡SOLUCIÓN!: Si el jugador no registró el partido, no se asume un 0-0 fantasma, tiene 0 puntos directo.
+            if real and pred and "l" in real and "v" in real and "l" in pred and "v" in pred:
+                pts, _, _ = calcular_puntos(real["l"], real["v"], pred["l"], pred["v"])
                 pts_totales += pts
                 if pts == 3: exactos += 1
                 elif pts == 1: tendencias += 1
@@ -315,7 +329,7 @@ with tabs[1]:
     
     puntero_1 = df_tabla.iloc[0]["Participante"].upper() if len(df_tabla) > 0 else "POR DEFINIR"
     puntero_2 = df_tabla.iloc[1]["Participante"].upper() if len(df_tabla) > 1 else "POR DEFINIR"
-    puntero_3 = df_tabla.iloc[2]["Participante"].upper() if len(df_tabla) > 2 else "POR DEFINIR"
+    puntero_3 = df_tabla.iloc[2]["Participante"].upper() if len(df_tabla) > 3 else "POR DEFINIR"
     
     st.markdown(f"### 💰 Pozo Acumulado del Grupo: **${fondo_total:,.0f} CLP**")
     
@@ -348,7 +362,7 @@ with tabs[1]:
     st.write("---")
     st.dataframe(df_tabla, use_container_width=True)
 
-# --- TAB 3: REGISTRAR PRONÓSTICOS ---
+# --- TAB 3: REGISTRAR PRONÓSTICOS (¡OPCIÓN B: CASILLAS VACÍAS NATIVAS + SCROLL ARRIBA!) ---
 with tabs[2]:
     st.markdown("## ✍️ ARMA TU JUGADA")
     usuario = st.selectbox("Selecciona tu nombre para apostar:", PARTICIPANTES)
@@ -369,52 +383,79 @@ with tabs[2]:
     st.write(f"### 🏟️ Mostrando {len(partidos_visibles)} partidos de: **{bloque_seleccionado}**")
     st.write("---")
     
-    for part in partidos_visibles:
-        pid = str(part["id"])
-        pred_actual = datos["pronosticos"].get(usuario, {}).get(pid, {"l": 0, "v": 0})
-        real_actual = datos["resultados_reales"].get(pid)
+    with st.form(key=f"form_seguro_{usuario}_{filtro_fia}"):
+        respuestas_temporales = {}
         
-        ya_empezo = verificar_partido_empezado(part.get("fecha_ref", "2026-06-11 00:00"))
-        congelado_por_admin = pid in datos["resultados_reales"]
-        bloquear_casilla = ya_empezo or congelado_por_admin
-        
-        real_l = real_actual.get("l") if real_actual else None
-        real_v = real_actual.get("v") if real_actual else None
-        
-        _, color_hex, texto_status = calcular_puntos(real_l, real_v, pred_actual.get("l", 0), pred_actual.get("v", 0))
-        
-        if congelado_por_admin:
-            texto_status += " | 🔒 APUESTA CERRADA"
-        elif ya_empezo:
-            texto_status += " | 🔒 CANDADO: PARTIDO EN CURSO"
-            color_hex = "#be123c"
-        
-        st.markdown(f"""
-        <div style="background: rgba(30,41,59,0.7); padding: 6px 12px; border-radius: 8px 8px 0 0; border-left: 5px solid {color_hex}; font-size: 0.85rem; margin-top:12px; color:#cbd5e1;">
-            <b>{part["grupo"].upper()} — PARTIDO #{pid}</b> ({part["fecha"]} - {part["hora"]} hrs) | {part["estadio"]} | <span style="color:{color_hex}; font-weight:bold;">{texto_status}</span>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col_l, col_inputs, col_v = st.columns([4, 3, 4])
-        with col_l:
-            st.markdown(f"<div style='text-align:right; font-weight:bold; font-size:1rem; padding-top:6px;'>{part['local']} {part['flag_l']}</div>", unsafe_allow_html=True)
-        with col_inputs:
-            c_in1, c_in2 = st.columns(2)
-            with c_in1:
-                g_l = st.number_input("GL", min_value=0, max_value=15, value=int(pred_actual.get("l", 0)), key=f"l_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
-            with c_in2:
-                g_v = st.number_input("GV", min_value=0, max_value=15, value=int(pred_actual.get("v", 0)), key=f"v_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
-        with col_v:
-            st.markdown(f"<div style='text-align:left; font-weight:bold; font-size:1rem; padding-top:6px;'>{part['flag_v']} {part['visita']}</div>", unsafe_allow_html=True)
-        
-        if not bloquear_casilla: 
-            datos["pronosticos"][usuario][pid] = {"l": g_l, "v": g_v}
+        for part in partidos_visibles:
+            pid = str(part["id"])
+            pred_actual = datos["pronosticos"].get(usuario, {}).get(pid, {})
+            real_actual = datos["resultados_reales"].get(pid)
             
-    st.write("---")
-    if st.button("💾 GUARDAR APUESTAS DE ESTA FECHA", use_container_width=True):
-        guardar_datos(datos)
-        animar_balon_oficial()
-        st.success(f"¡Excelente {usuario}, tus pronósticos activos de la {filtro_fia} fueron guardados correctamente!")
+            ya_empezo = verificar_partido_empezado(part.get("fecha_ref", "2026-06-11 00:00"))
+            congelado_por_admin = pid in datos["resultados_reales"]
+            bloquear_casilla = ya_empezo or congelado_por_admin
+            
+            real_l = real_actual.get("l") if real_actual else None
+            real_v = real_actual.get("v") if real_actual else None
+            
+            # Si el participante no tiene apuestas, se le manda None (casilla vacía Opción B)
+            pred_l_val = pred_actual.get("l") if "l" in pred_actual else None
+            pred_v_val = pred_actual.get("v") if "v" in pred_actual else None
+            
+            _, color_hex, texto_status = calcular_puntos(real_l, real_v, pred_l_val, pred_v_val)
+            
+            if congelado_por_admin:
+                texto_status += " | 🔒 APUESTA CERRADA"
+            elif ya_empezo:
+                texto_status += " | 🔒 CANDADO: PARTIDO EN CURSO"
+                color_hex = "#be123c"
+            
+            st.markdown(f"""
+            <div style="background: rgba(30,41,59,0.7); padding: 6px 12px; border-radius: 8px 8px 0 0; border-left: 5px solid {color_hex}; font-size: 0.85rem; margin-top:12px; color:#cbd5e1;">
+                <b>{part["grupo"].upper()} — PARTIDO #{pid}</b> ({part["fecha"]} - {part["hora"]} hrs) | {part["estadio"]} | <span style="color:{color_hex}; font-weight:bold;">{texto_status}</span>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            col_l, col_inputs, col_v = st.columns([4, 3, 4])
+            with col_l:
+                st.markdown(f"<div style='text-align:right; font-weight:bold; font-size:1rem; padding-top:6px;'>{part['local']} {part['flag_l']}</div>", unsafe_allow_html=True)
+            with col_inputs:
+                c_in1, c_in2 = st.columns(2)
+                with c_in1:
+                    # ¡SOLUCIÓN B!: Casillas vacías nativas mediante value=None si no hay datos guardados
+                    g_l = st.number_input("GL", min_value=0, max_value=15, value=pred_l_val, placeholder="-", key=f"l_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
+                with c_in2:
+                    g_v = st.number_input("GV", min_value=0, max_value=15, value=pred_v_val, placeholder="-", key=f"v_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
+            with col_v:
+                st.markdown(f"<div style='text-align:left; font-weight:bold; font-size:1rem; padding-top:6px;'>{part['flag_v']} {part['visita']}</div>", unsafe_allow_html=True)
+            
+            respuestas_temporales[pid] = {"l": g_l, "v": g_v}
+            
+        st.write("---")
+        boton_guardar = st.form_submit_button(label="💾 GUARDAR APUESTAS DE ESTA FECHA", use_container_width=True)
+        
+        if boton_guardar:
+            if usuario not in datos["pronosticos"]:
+                datos["pronosticos"][usuario] = {}
+                
+            for pid, scores in respuestas_temporales.items():
+                partido_info = next((m for m in partidos_visibles if str(m["id"]) == pid), None)
+                if partido_info and not verificar_partido_empezado(partido_info.get("fecha_ref", "2026-06-11 00:00")) and pid not in datos["resultados_reales"]:
+                    # Solo guarda si ambas casillas tienen números válidos, de lo contrario elimina o ignora (Opción B)
+                    if scores["l"] is not None and scores["v"] is not None:
+                        datos["pronosticos"][usuario][pid] = {"l": int(scores["l"]), "v": int(scores["v"])}
+                    else:
+                        datos["pronosticos"][usuario].pop(pid, None)
+            
+            guardar_datos(datos)
+            animar_balon_oficial()
+            
+            # Guardamos el mensaje en la sesión para que sobreviva a la recarga
+            st.session_state["mensaje_exito"] = f"¡Excelente {usuario}, tus pronósticos activos de la {filtro_fia} fueron guardados correctamente!"
+            
+            # ¡SOLUCIÓN VIAJE SUPERIOR!: Primero mandamos la pantalla arriba y luego recargamos de forma controlada
+            st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
+            st.rerun()
 
 # --- TAB 4: CRONOGRAMA INTELIGENTE ---
 with tabs[3]:
@@ -470,30 +511,16 @@ with tabs[3]:
         
     def estilo_filas_finalizadas(row):
         if row["Estado"] == "🔒 FINALIZADO":
-            return ['background-color: rgba(71, 85, 105, 0.25); color: #94a3b8; font-style: italic;'] * len(row)
+            return ['background-color: rgba(71, 85, 105, 0.35); color: #cbd5e1; font-style: italic;'] * len(row)
         elif row["Estado"] == "⏱️ EN CURSO / EN JUEGO":
-            return ['background-color: rgba(186, 18, 60, 0.15); color: #fda4af;'] * len(row)
+            return ['background-color: rgba(186, 18, 60, 0.25); color: #fda4af; font-weight: bold;'] * len(row)
         return [''] * len(row)
         
     df_estilizado = df_mostrar.style.apply(estilo_filas_finalizadas, axis=1)
     
-    st.dataframe(
-        df_estilizado, 
-        use_container_width=True, 
-        hide_index=True,
-        column_config={
-            "Grupo/Fase": st.column_config.TextColumn(disabled=True),
-            "Fecha/Hora": st.column_config.TextColumn(disabled=True),
-            "Local": st.column_config.TextColumn(disabled=True),
-            "Goles L": st.column_config.TextColumn(disabled=True),
-            "Goles V": st.column_config.TextColumn(disabled=True),
-            "Visitante": st.column_config.TextColumn(disabled=True),
-            "Estadio": st.column_config.TextColumn(disabled=True),
-            "Estado": st.column_config.TextColumn(disabled=True)
-        }
-    )
+    st.dataframe(df_estilizado, use_container_width=True, hide_index=True)
 
-# --- TAB 5: PANEL CONTROL ADMINISTRADOR ---
+# --- TAB 5: PANEL CONTROL ADMINISTRADOR (¡CON VIAJE SUPERIOR TAMBIÉN!) ---
 with tabs[4]:
     st.markdown("## ⚙️ PANEL DE CONTROL DE ADMINISTRADOR")
     pass_input = st.text_input("Token de Seguridad Mandamás:", type="password")
@@ -512,7 +539,6 @@ with tabs[4]:
         
         st.write("---")
         
-        # --- MODO 1: CARGAR RESULTADOS REALES ---
         if accion_admin == "📝 Cargar Resultados Oficiales":
             st.write("### 🏟️ REGISTRAR MARCADORES OFICIALES MUNDIALISTAS")
             nuevos_cierres = dict(datos["resultados_reales"])
@@ -543,38 +569,58 @@ with tabs[4]:
                 else:
                     nuevos_cierres.pop(pid, None)
                 st.markdown("<div style='margin-bottom:10px;'></div>", unsafe_allow_html=True)
-                
+            
+            st.write("---")
             if st.button("🔄 ACTUALIZAR MARCADORES MUNDIALES", use_container_width=True):
                 datos["resultados_reales"] = nuevos_cierres
                 guardar_datos(datos)
-                st.toast("¡Marcadores actualizados e indestructiblemente guardados!")
+                
+                st.session_state["mensaje_exito"] = "¡Superpoderes activados! Los marcadores oficiales se guardaron y las posiciones fueron recalculadas con éxito."
+                
+                # ¡VIAJE SUPERIOR ADMIN!: Mueve al tope en iPad antes de recargar
+                st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
                 st.rerun()
 
-        # --- MODO 2: INYECTAR O CORREGIR APUESTAS DE JUGADORES ---
         elif accion_admin == "✍️ Inyectar/Corregir Apuestas de Jugadores":
             st.write("### 👤 SALTAR BLOQUEO DE TIEMPO E INGRESA APUESTAS")
             jugador_a_editar = st.selectbox("Selecciona al jugador que le vas a meter la apuesta:", PARTICIPANTES)
             
             st.warning(f"Estás editando la cartilla de **{jugador_a_editar}**. Aquí NO opera el candado de tiempo.")
             
+            respuestas_temporales_admin = {}
+            
             for part in partidos_admin:
                 pid = str(part["id"])
-                pred_actual = datos["pronosticos"].get(jugador_a_editar, {}).get(pid, {"l": 0, "v": 0})
+                pred_actual = datos["pronosticos"].get(jugador_a_editar, {}).get(pid, {})
                 
                 st.markdown(f"**Partido #{pid} ({part['grupo']}): {part['local']} vs {part['visita']}**")
                 c_il, c_iv = st.columns(2)
                 
                 with c_il:
-                    g_l = st.number_input(f"Goles Local", min_value=0, max_value=15, value=int(pred_actual.get("l", 0)), key=f"admin_l_{jugador_a_editar}_{pid}")
+                    val_admin_l = pred_actual.get("l") if "l" in pred_actual else None
+                    g_l = st.number_input(f"Goles Local", min_value=0, max_value=15, value=val_admin_l, placeholder="-", key=f"admin_l_{jugador_a_editar}_{pid}")
                 with c_iv:
-                    g_v = st.number_input(f"Goles Visita", min_value=0, max_value=15, value=int(pred_actual.get("v", 0)), key=f"admin_v_{jugador_a_editar}_{pid}")
+                    val_admin_v = pred_actual.get("v") if "v" in pred_actual else None
+                    g_v = st.number_input(f"Goles Visita", min_value=0, max_value=15, value=val_admin_v, placeholder="-", key=f"admin_v_{jugador_a_editar}_{pid}")
                 
-                if jugador_a_editar not in datos["pronosticos"]:
-                    datos["pronosticos"][jugador_a_editar] = {}
-                datos["pronosticos"][jugador_a_editar][pid] = {"l": g_l, "v": g_v}
+                respuestas_temporales_admin[pid] = {"l": g_l, "v": g_v}
                 st.markdown("<div style='margin-bottom:10px;'></div>", unsafe_allow_html=True)
                 
+            st.write("---")
             if st.button(f"💾 SALVAR CARTILLA DE {jugador_a_editar.upper()}", use_container_width=True):
+                if jugador_a_editar not in datos["pronosticos"]:
+                    datos["pronosticos"][jugador_a_editar] = {}
+                
+                for pid, scores in respuestas_temporales_admin.items():
+                    if scores["l"] is not None and scores["v"] is not None:
+                        datos["pronosticos"][jugador_a_editar][pid] = {"l": int(scores["l"]), "v": int(scores["v"])}
+                    else:
+                        datos["pronosticos"][jugador_a_editar].pop(pid, None)
+                    
                 guardar_datos(datos)
-                st.success(f"¡Modificación forzosa de {jugador_a_editar} guardada con éxito!")
+                
+                st.session_state["mensaje_exito"] = f"¡Modificación forzosa de {jugador_a_editar} inyectada y guardada con éxito!"
+                
+                # ¡VIAJE SUPERIOR ADMIN!: Mueve al tope en iPad antes de recargar
+                st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
                 st.rerun()
