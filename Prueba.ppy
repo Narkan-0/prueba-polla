@@ -116,7 +116,7 @@ def obtener_frase_futbolera():
     ]
     return random.choice(frases)
 
-# CONFIGURACIÓN GENERAL DE USUARIOS (¡Corregido: 11 competidores ordenados alfabéticamente!)
+# CONFIGURACIÓN GENERAL DE USUARIOS (11 competidores ordenados alfabéticamente)
 PARTICIPANTES = ["Constanza", "David", "Franco", "José Alonso", "José Mario", "Leonardo", "Marlene", "Mario", "Néstor", "Renato", "Sergio"]
 CUOTA_INSCRIPCION = 5000
 PASSWORD_ADMIN = "admin123"
@@ -256,9 +256,9 @@ def animar_balon_oficial():
             <div style="font-size:120px; animation: spin 1.4s ease-out forwards;">⚽</div>
         </div>
         <style>
-        @keyframes spin { 0% { transform: scale(0) rotate(0deg); } 50% { transform: scale(1.5) rotate(360deg); } 100% { transform: scale(0); } }
+        @keyframes spin {{ 0% {{ transform: scale(0) rotate(0deg); }} 50% {{ transform: scale(1.5) rotate(360deg); }} 100% {{ transform: scale(0); }} }}
         </style>
-        <script>setTimeout(() => { document.getElementById('ball-box').remove(); }, 1400);</script>
+        <script>setTimeout(() => {{ document.getElementById('ball-box').remove(); }}, 1400);</script>
         """
     st.components.v1.html(balon_html, height=0, width=0)
 
@@ -301,7 +301,7 @@ with tabs[0]:
     * Si persiste el empate, el premio del puesto se divide en partes iguales.
     """)
 
-# --- TAB 2: CLASIFICACIÓN EN VIVO (¡Corregido contra puntos fantasma!) ---
+# --- TAB 2: CLASIFICACIÓN EN VIVO ---
 with tabs[1]:
     st.markdown("## 📊 RENDIMIENTO DE LA FAMILIA")
     tabla_posiciones = []
@@ -316,7 +316,6 @@ with tabs[1]:
             real = datos["resultados_reales"].get(pid)
             pred = datos["pronosticos"].get(p, {}).get(pid)
             
-            # ¡SOLUCIÓN!: Si el jugador no registró el partido, no se asume un 0-0 fantasma, tiene 0 puntos directo.
             if real and pred and "l" in real and "v" in real and "l" in pred and "v" in pred:
                 pts, _, _ = calcular_puntos(real["l"], real["v"], pred["l"], pred["v"])
                 pts_totales += pts
@@ -362,7 +361,7 @@ with tabs[1]:
     st.write("---")
     st.dataframe(df_tabla, use_container_width=True)
 
-# --- TAB 3: REGISTRAR PRONÓSTICOS (¡OPCIÓN B: CASILLAS VACÍAS NATIVAS + SCROLL ARRIBA!) ---
+# --- TAB 3: REGISTRAR PRONÓSTICOS ---
 with tabs[2]:
     st.markdown("## ✍️ ARMA TU JUGADA")
     usuario = st.selectbox("Selecciona tu nombre para apostar:", PARTICIPANTES)
@@ -398,7 +397,6 @@ with tabs[2]:
             real_l = real_actual.get("l") if real_actual else None
             real_v = real_actual.get("v") if real_actual else None
             
-            # Si el participante no tiene apuestas, se le manda None (casilla vacía Opción B)
             pred_l_val = pred_actual.get("l") if "l" in pred_actual else None
             pred_v_val = pred_actual.get("v") if "v" in pred_actual else None
             
@@ -422,7 +420,6 @@ with tabs[2]:
             with col_inputs:
                 c_in1, c_in2 = st.columns(2)
                 with c_in1:
-                    # ¡SOLUCIÓN B!: Casillas vacías nativas mediante value=None si no hay datos guardados
                     g_l = st.number_input("GL", min_value=0, max_value=15, value=pred_l_val, placeholder="-", key=f"l_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
                 with c_in2:
                     g_v = st.number_input("GV", min_value=0, max_value=15, value=pred_v_val, placeholder="-", key=f"v_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
@@ -441,7 +438,6 @@ with tabs[2]:
             for pid, scores in respuestas_temporales.items():
                 partido_info = next((m for m in partidos_visibles if str(m["id"]) == pid), None)
                 if partido_info and not verificar_partido_empezado(partido_info.get("fecha_ref", "2026-06-11 00:00")) and pid not in datos["resultados_reales"]:
-                    # Solo guarda si ambas casillas tienen números válidos, de lo contrario elimina o ignora (Opción B)
                     if scores["l"] is not None and scores["v"] is not None:
                         datos["pronosticos"][usuario][pid] = {"l": int(scores["l"]), "v": int(scores["v"])}
                     else:
@@ -450,10 +446,8 @@ with tabs[2]:
             guardar_datos(datos)
             animar_balon_oficial()
             
-            # Guardamos el mensaje en la sesión para que sobreviva a la recarga
             st.session_state["mensaje_exito"] = f"¡Excelente {usuario}, tus pronósticos activos de la {filtro_fia} fueron guardados correctamente!"
             
-            # ¡SOLUCIÓN VIAJE SUPERIOR!: Primero mandamos la pantalla arriba y luego recargamos de forma controlada
             st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
             st.rerun()
 
@@ -520,7 +514,7 @@ with tabs[3]:
     
     st.dataframe(df_estilizado, use_container_width=True, hide_index=True)
 
-# --- TAB 5: PANEL CONTROL ADMINISTRADOR (¡CON VIAJE SUPERIOR TAMBIÉN!) ---
+# --- TAB 5: PANEL CONTROL ADMINISTRADOR ---
 with tabs[4]:
     st.markdown("## ⚙️ PANEL DE CONTROL DE ADMINISTRADOR")
     pass_input = st.text_input("Token de Seguridad Mandamás:", type="password")
@@ -577,7 +571,6 @@ with tabs[4]:
                 
                 st.session_state["mensaje_exito"] = "¡Superpoderes activados! Los marcadores oficiales se guardaron y las posiciones fueron recalculadas con éxito."
                 
-                # ¡VIAJE SUPERIOR ADMIN!: Mueve al tope en iPad antes de recargar
                 st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
                 st.rerun()
 
@@ -621,6 +614,5 @@ with tabs[4]:
                 
                 st.session_state["mensaje_exito"] = f"¡Modificación forzosa de {jugador_a_editar} inyectada y guardada con éxito!"
                 
-                # ¡VIAJE SUPERIOR ADMIN!: Mueve al tope en iPad antes de recargar
                 st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
                 st.rerun()
