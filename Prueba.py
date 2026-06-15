@@ -10,13 +10,13 @@ import pytz
 # CONFIGURACIÓN DE LA PÁGINA
 st.set_page_config(page_title="Polla Mundial 2026 - LABORATORIO DE PRUEBAS", page_icon="🧪", layout="wide")
 
-# CONFIGURACIÓN GENERAL DE USUARIOS Y VARIABLES (¡Todo arriba para que nada falle!)
+# CONFIGURACIÓN GENERAL DE USUARIOS Y VARIABLES
 PARTICIPANTES = ["Constanza", "David", "Franco", "José Alonso", "José Mario", "Leonardo", "Marlene", "Mario", "Néstor", "Renato", "Sergio"]
 CUOTA_INSCRIPCION = 5000
 PASSWORD_ADMIN = "admin123"
 ARCHIVO_DATOS = "datos_prueba.json"
 
-# CONSOLIDADO OFICIAL DE LOS 104 PARTIDOS
+# CONSOLIDADO OFICIAL DE LOS 104 PARTIDOS SEGÚN FORMATO FIFA
 @st.cache_data
 def obtener_fixture_completo():
     return [
@@ -329,7 +329,7 @@ def animar_balon_oficial():
 
 tabs = st.tabs(["📜 BASES DEL JUEGO", "📊 CLASIFICACIÓN EN VIVO", "✍️ REGISTRAR PRONÓSTICOS", "📅 CRONOGRAMA", "⚙️ PANEL CONTROL"])
 
-# --- TAB 1 ---
+# --- TAB 1: BASES ---
 with tabs[0]:
     st.markdown("""
     ## 🏆 BASES POLLA MUNDIALERA 🏆
@@ -349,7 +349,7 @@ with tabs[0]:
     * **0 puntos:** No acierta nada.
     """)
 
-# --- TAB 2 ---
+# --- TAB 2: CLASIFICACIÓN ---
 with tabs[1]:
     st.markdown("## 📊 RENDIMIENTO DE LA FAMILIA")
     tabla_posiciones = []
@@ -367,7 +367,7 @@ with tabs[1]:
                 pts_totales += pts
                 if pts == 3: exactos += 1
                 elif pts == 1: tendencias += 1
-        tabla_posiciones.append({"Participante": p, "Puntos Totales 🌟": pts_totales, "Marcadores Exactos 🎯": exactos, "Aciertos Simples 🏟️": tendencias})
+        tabla_posiciones.append({"Participante": p, "Puntos Totales 🌟": pts_totales, "Marcadores Exactos 🎯": exactos, "Aciertos Simples (1pt) 🏟️": tendencias})
     
     df_tabla = pd.DataFrame(tabla_posiciones).sort_values(by=["Puntos Totales 🌟", "Marcadores Exactos 🎯"], ascending=False).reset_index(drop=True)
     df_tabla.index += 1
@@ -383,12 +383,12 @@ with tabs[1]:
     st.write("---")
     st.dataframe(df_tabla, use_container_width=True)
 
-# --- TAB 3 ---
+# --- TAB 3: REGISTRAR PRONÓSTICOS ---
 with tabs[2]:
     st.markdown("## ✍️ ARMA TU JUGADA")
     usuario = st.selectbox("Selecciona tu nombre para apostar:", PARTICIPANTES)
     
-    bloque_seleccionado = st.radio("Filtrar por fecha:", ["Fecha 1 (1-24)", "Fecha 2 (25-48)", "Fecha 3 (49-72)", "Fases Finales"], horizontal=True)
+    bloque_seleccionado = st.radio("Filtrar por fecha:", ["Fecha 1 (Partidos 1-24)", "Fecha 2 (Partidos 25-48)", "Fecha 3 (Partidos 49-72)", "Fases Finales"], horizontal=True)
     if "Fecha 1" in bloque_seleccionado: filtro_fia = "Fecha 1"
     elif "Fecha 2" in bloque_seleccionado: filtro_fia = "Fecha 2"
     elif "Fecha 3" in bloque_seleccionado: filtro_fia = "Fecha 3"
@@ -417,13 +417,15 @@ with tabs[2]:
             if congelado_por_admin: texto_status += " | 🔒 CERRADO"
             elif ya_empezo: color_hex, texto_status = "#be123c", "🔒 EN CURSO"
             
-            st.markdown(f"<div style='background:rgba(30,41,59,0.7);padding:6px;border-left:5px solid {color_hex};font-size:0.85rem;margin-top:12px;'><b>#{pid}</b> | {part['fecha']} | <span style='color:{color_hex};'>{texto_status}</span></div>", unsafe_allow_html=True)
+            # ¡SOLUCIÓN 1!: Fecha y hora explícitas en cada tarjeta de partido
+            st.markdown(f"<div style='background:rgba(30,41,59,0.7);padding:6px 12px;border-left:5px solid {color_hex};font-size:0.85rem;margin-top:12px;'><b>{part['grupo'].upper()} — PARTIDO #{pid}</b> ({part['fecha']} - {part['hora']} hrs) | {part['estadio']} | <span style='color:{color_hex};font-weight:bold;'>{texto_status}</span></div>", unsafe_allow_html=True)
             
-            c_l, c_in1, c_in2, c_v = st.columns([3, 1, 1, 3])
-            with c_l: st.markdown(f"<div style='text-align:right;font-weight:bold;padding-top:6px;'>{part['local']} {part['flag_l']}</div>", unsafe_allow_html=True)
-            with c_in1: g_l = st.number_input("L", min_value=0, max_value=15, value=pred_l_val, placeholder="-", key=f"l_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
-            with c_in2: g_v = st.number_input("V", min_value=0, max_value=15, value=pred_v_val, placeholder="-", key=f"v_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
-            with c_v: st.markdown(f"<div style='font-weight:bold;padding-top:6px;'>{part['flag_v']} {part['visita']}</div>", unsafe_allow_html=True)
+            c_l, c_in1, c_in2, c_v = st.columns([4, 1, 1, 4])
+            with c_l: st.markdown(f"<div style='text-align:right;font-weight:bold;font-size:1rem;padding-top:6px;'>{part['local']} {part['flag_l']}</div>", unsafe_allow_html=True)
+            # ¡SOLUCIÓN 2!: Clave única por usuario para que no se hereden los marcadores al cambiar de perfil
+            with c_in1: g_l = st.number_input("L", min_value=0, max_value=15, value=pred_l_val, placeholder="-", key=f"l_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
+            with c_in2: g_v = st.number_input("V", min_value=0, max_value=15, value=pred_v_val, placeholder="-", key=f"v_{usuario}_{pid}", disabled=bloquear_casilla, label_visibility="collapsed")
+            with c_v: st.markdown(f"<div style='text-align:left;font-weight:bold;font-size:1rem;padding-top:6px;'>{part['flag_v']} {part['visita']}</div>", unsafe_allow_html=True)
             
             respuestas_temporales[pid] = {"l": g_l, "v": g_v}
             
@@ -439,13 +441,13 @@ with tabs[2]:
                         datos["pronosticos"][usuario].pop(pid, None)
             guardar_datos(datos)
             animar_balon_oficial()
-            st.session_state["mensaje_exito"] = f"¡Jugadas guardadas para {usuario}!"
+            st.session_state["mensaje_exito"] = f"¡Excelente, tus pronósticos activos de la {filtro_fia} fueron guardados correctamente!"
             st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
             st.rerun()
 
-# --- TAB 4 ---
+# --- TAB 4: CRONOGRAMA ---
 with tabs[3]:
-    st.markdown("## 📅 MARCADORES EN VIVO")
+    st.markdown("## 📅 CRONOGRAMA OFICIAL Y MARCADORES EN VIVO")
     lista_cronograma = []
     for part in FIXTURE_DINAMICO:
         pid = str(part["id"])
@@ -453,15 +455,33 @@ with tabs[3]:
         if real: estado, ml, mv = "🔒 FINALIZADO", str(real["l"]), str(real["v"])
         elif verificar_partido_empezado(part.get("fecha_ref", "")): estado, ml, mv = "⏱️ EN CURSO", "-", "-"
         else: estado, ml, mv = "🟢 ABIERTO", "-", "-"
-        lista_cronograma.append({"Fecha": part["fecha_ref"], "Fase": part["grupo"], "Local": part["local"], "L": ml, "V": mv, "Visita": part["visita"], "Estado": estado})
         
-    df_crono = pd.DataFrame(lista_cronograma).sort_values("Fecha").drop(columns=["Fecha"])
-    st.dataframe(df_crono.style.apply(lambda r: ['background:rgba(71,85,105,0.3);color:#cbd5e1;']*len(r) if r["Estado"]=="🔒 FINALIZADO" else ['background:rgba(186,18,60,0.2);color:#fda4af;']*len(r) if r["Estado"]=="⏱️ EN CURSO" else ['']*len(r), axis=1), use_container_width=True, hide_index=True)
+        # ¡SOLUCIÓN 1!: Reincorporación de la columna Fecha/Hora legible y ordenada por tiempo real
+        lista_cronograma.append({
+            "fecha_orden": part["fecha_ref"],
+            "N°": pid,
+            "Fase": part["grupo"],
+            "Fecha/Hora ⏱️": f"{part['fecha']} ({part['hora']} hrs)",
+            "Local": f"{part['flag_l']} {part['local']}",
+            "L": ml,
+            "V": mv,
+            "Visita": f"{part['flag_v']} {part['visita']}",
+            "Estadio": part["estadio"],
+            "Estado": estado
+        })
+        
+    df_crono = pd.DataFrame(lista_cronograma)
+    df_crono["fecha_orden"] = pd.to_datetime(df_crono["fecha_orden"])
+    df_crono = df_crono.sort_values(by="fecha_orden", ascending=True).reset_index(drop=True)
+    df_crono = df_crono.drop(columns=["fecha_orden"])
+    
+    st.dataframe(df_crono.style.apply(lambda r: ['background:rgba(71,85,105,0.3);color:#cbd5e1;font-style:italic;']*len(r) if r["Estado"]=="🔒 FINALIZADO" else ['background:rgba(186,18,60,0.2);color:#fda4af;font-weight:bold;']*len(r) if r["Estado"]=="⏱️ EN CURSO" else ['']*len(r), axis=1), use_container_width=True, hide_index=True)
 
-# --- TAB 5 ---
+# --- TAB 5: PANEL CONTROL ---
 with tabs[4]:
-    st.markdown("## ⚙️ PANEL DE MANDAMÁS")
-    if st.text_input("Token:", type="password") == PASSWORD_ADMIN:
+    st.markdown("## ⚙️ PANEL DE CONTROL DE ADMINISTRADOR")
+    if st.text_input("Token de Seguridad Mandamás:", type="password") == PASSWORD_ADMIN:
+        st.success("🔓 Acceso Concedido")
         accion_admin = st.radio("Acción:", ["Marcadores Oficiales", "Forzar Apuestas"], horizontal=True)
         fase_admin = st.selectbox("Fase:", ["Fecha 1", "Fecha 2", "Fecha 3", "Fases Finales"])
         partidos_admin = [m for m in FIXTURE_DINAMICO if m["fase_bloque"] == fase_admin]
@@ -473,38 +493,48 @@ with tabs[4]:
                 pid = str(part["id"])
                 real_actual = datos["resultados_reales"].get(pid, {"l": 0, "v": 0})
                 
+                st.markdown(f"**Partido #{pid} ({part['grupo']}): {part['local']} vs {part['visita']}**")
                 c_l, c_v, c_check = st.columns([2, 2, 3])
-                with c_l: g_r_l = st.number_input(part["local"], 0, 15, int(real_actual.get("l", 0)), key=f"ar_{pid}l")
-                with c_v: g_r_v = st.number_input(part["visita"], 0, 15, int(real_actual.get("v", 0)), key=f"ar_{pid}v")
-                with c_check: fin = st.checkbox("Oficial", value=(pid in datos["resultados_reales"]), key=f"chk_{pid}")
+                with c_l: g_r_l = st.number_input(f"Goles L", 0, 15, int(real_actual.get("l", 0)), key=f"ar_{pid}l", label_visibility="collapsed")
+                with c_v: g_r_v = st.number_input(f"Goles V", 0, 15, int(real_actual.get("v", 0)), key=f"ar_{pid}v", label_visibility="collapsed")
+                with c_check: fin = st.checkbox("Cerrar Oficial", value=(pid in datos["resultados_reales"]), key=f"chk_{pid}")
                 
-                if fin: nuevos_cierres[pid] = {"l": g_r_l, "v": g_r_v}
+                if fin: 
+                    nuevos_cierres[pid] = {"l": g_r_l, "v": g_r_v}
+                    if "Fases Finales" in part["fase_bloque"]:
+                        if g_r_l == g_r_v:
+                            nuevos_cierres[pid]["avanza"] = st.selectbox("🏆 Clasifica:", [part['local'], part['visita']], key=f"avanza_{pid}")
+                        else:
+                            nuevos_cierres[pid]["avanza"] = part['local'] if g_r_l > g_r_v else part['visita']
                 else: nuevos_cierres.pop(pid, None)
             
-            if st.button("🔄 ACTUALIZAR MARCADORES"):
+            if st.button("🔄 ACTUALIZAR MARCADORES MUNDIALES", use_container_width=True):
                 datos["resultados_reales"] = nuevos_cierres
                 guardar_datos(datos)
-                st.session_state["mensaje_exito"] = "¡Marcadores actualizados!"
+                st.session_state["mensaje_exito"] = "¡Los marcadores oficiales se actualizaron con éxito!"
                 st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
                 st.rerun()
 
         elif accion_admin == "Forzar Apuestas":
-            jugador = st.selectbox("Jugador:", PARTICIPANTES)
+            jugador = st.selectbox("Selecciona al jugador:", PARTICIPANTES)
             resp_admin = {}
             for part in partidos_admin:
                 pid = str(part["id"])
                 pred = datos["pronosticos"].get(jugador, {}).get(pid, {})
+                
+                st.markdown(f"**Partido #{pid}: {part['local']} vs {part['visita']}**")
                 c_l, c_v = st.columns(2)
-                with c_l: gl = st.number_input(f"L ({part['local']})", 0, 15, pred.get("l"), placeholder="-", key=f"fa_{pid}l")
-                with c_v: gv = st.number_input(f"V ({part['visita']})", 0, 15, pred.get("v"), placeholder="-", key=f"fa_{pid}v")
+                # ¡SOLUCIÓN 2 (Admin)!: Claves únicas por jugador también en el panel del administrador
+                with c_l: gl = st.number_input(f"L", 0, 15, pred.get("l"), placeholder="-", key=f"fa_{jugador}_{pid}l")
+                with c_v: gv = st.number_input(f"V", 0, 15, pred.get("v"), placeholder="-", key=f"fa_{jugador}_{pid}v")
                 resp_admin[pid] = {"l": gl, "v": gv}
                 
-            if st.button(f"💾 SALVAR {jugador.upper()}"):
+            if st.button(f"💾 SALVAR CARTILLA DE {jugador.upper()}", use_container_width=True):
                 if jugador not in datos["pronosticos"]: datos["pronosticos"][jugador] = {}
                 for pid, sc in resp_admin.items():
                     if sc["l"] is not None and sc["v"] is not None: datos["pronosticos"][jugador][pid] = {"l": int(sc["l"]), "v": int(sc["v"])}
                     else: datos["pronosticos"][jugador].pop(pid, None)
                 guardar_datos(datos)
-                st.session_state["mensaje_exito"] = f"¡Cartilla de {jugador} forzada!"
+                st.session_state["mensaje_exito"] = f"¡Cartilla forzada de {jugador} guardada con éxito!"
                 st.html("<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>")
                 st.rerun()
