@@ -168,6 +168,20 @@ def cargar_imagen_local(nombre_archivo):
         with open(nombre_archivo, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode()
     return ""
+# CONFIGURACIÓN GENERAL DE USUARIOS (¡Puesta aquí arriba para que la base de datos la lea!)
+PARTICIPANTES = ["Constanza", "David", "Franco", "José Alonso", "José Mario", "Leonardo", "Marlene", "Mario", "Néstor", "Renato", "Sergio"]
+CUOTA_INSCRIPCION = 5000
+PASSWORD_ADMIN = "admin123"
+
+# ARCHIVO DE ALMACENAMIENTO EXCLUSIVO DE PRUEBAS
+ARCHIVO_DATOS = "datos_prueba.json"
+
+# --- FUNCIÓN SEGURA PARA CARGAR IMÁGENES LOCALES EN BASE64 ---
+def cargar_imagen_local(nombre_archivo):
+    if os.path.exists(nombre_archivo):
+        with open(nombre_archivo, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode()
+    return ""
 
 portada_base64 = cargar_imagen_local("portada.jpeg")
 fondo_base64 = cargar_imagen_local("fondo.png")
@@ -227,9 +241,6 @@ else:
     st.title("⚽ Polla Mundial 2026")
 
 st.markdown(f"<p style='text-align:center; font-style:italic; color:#f1f5f9; font-size:1.05rem; padding:15px 20px 0 20px;'>{{obtener_frase_futbolera()}}</p>", unsafe_allow_html=True)
-
-
-
 
 # --- LÓGICA DE PERSISTENCIA DE DATOS EN VIVO (MOLDE SEGURO DE PRUEBAS) ---
 def inicializar_base_de_datos():
